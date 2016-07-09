@@ -70,12 +70,14 @@
 	$ci_response = json_decode( $ci_request->getBody(), true );
 
 	// Data for the Gist
-	$mh_team_name 	 = $ti_response['team']['name'];
-	$mh_channel_name = ' #' . $ci_response['channel']['name'];
+	$mh_team_name 	 = $ti_response[ 'team' ][ 'name' ];
+
+	$mh_channel_name = ' #' . $ci_response[ 'channel' ][ 'name' ];
+
 	$mh_channel_date = ' [' . date( 'd-m-Y h:i:s A' ) . ']';
 
 	// Stores the data to be put in a Gist
-	$mh_message_data 	= $mh_team_name . $mh_channel_name . $mh_channel_date . '\n\n';
+	$mh_message_data = $mh_team_name . $mh_channel_name . $mh_channel_date . "\n\n";
 
 	// Loop through each message
 	foreach ( array_reverse( $ch_response[ 'messages' ] ) as $message )
@@ -101,7 +103,7 @@
 	}
 
 	// Info for the Gist
-	$gh_file_name = $ci_response[ 'channel' ][ 'name' ] . '_' . date( 'd-m-Y_h-i-s-a' );
+	$gh_file_name 	= $ci_response[ 'channel' ][ 'name' ] . '_' . date( 'd-m-Y_h-i-s-a' );
 
 	$gh_description = $mh_team_name . $mh_channel_name . $mh_channel_date;
 
