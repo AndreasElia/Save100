@@ -1,0 +1,12 @@
+{
+	"name": "AndreasElia/Save100",
+	"license": "MIT",
+	"authors": [{
+		"name": "Andreas Elia",
+		"email": "andreaselia@live.co.uk"
+	}],
+	"require": {
+		"guzzlehttp/guzzle": "~6.0"
+	},
+	"prefer-stable": true
+}
