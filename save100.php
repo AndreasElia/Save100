@@ -96,10 +96,16 @@
 		$ui_response = json_decode( $ui_request->getBody(), true );
 
 		// Add info to the rest of the data
-		$mh_date = "[" . date( 'd-m-Y h:i:s A', $message['ts'] ) . "] <";
-		$mh_username = isset( $ui_response[ 'user' ][ 'name' ] ) ? $ui_response[ 'user' ][ 'name' ] : 'Bot';
+		$mh_date = json_encode([date( 'd-m-Y h:i:s A', $message['ts'] )]);;
+		$mh_username = $ui_response[ 'user' ][ 'name' ] ?: 'Bot';
 
-		$mh_message_data = $mh_message_data . $mh_date . $mh_username . "> " . $message[ 'text' ] . "\n";
+		$mh_message_data = sprintf(
+			'%s <%s> %s %s >\n'
+			$mh_message_data,
+			$mh_date,
+			$mh_username,
+			$message[ 'text' ]
+		);
 	}
 
 	// Info for the Gist
