@@ -121,8 +121,8 @@
 
 	$gh_data = array(
 		'description' => $gh_description,
-		'public'	  => true,
-		'files' 	  => $gh_files
+		'public'      => true,
+		'files'       => $gh_files
 	);
 
 	// Request the Gist
