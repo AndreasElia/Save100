@@ -26,10 +26,7 @@
 		'text' 	  => '*Processing request*'
 	];
 
-	$nm_request = $client->request(
-		'POST', 
-		'https://slack.com/api/chat.postMessage?' . http_build_query( $nm_payload )
-	);
+	$nm_request = $client->request->post('https://slack.com/api/chat.postMessage?' . http_build_query( $nm_payload ));
 
 	// Channel History (ch)
 	$ch_payload = [
@@ -37,10 +34,7 @@
 		'channel' => $channel,
 	];
 
-	$ch_request = $client->request(
-		'GET', 
-		'https://slack.com/api/channels.history?' . http_build_query( $ch_payload )
-	);
+	$ch_request = $client->request->get('https://slack.com/api/channels.history?' . http_build_query( $ch_payload ));
 
 	$ch_response = json_decode( $ch_request->getBody(), true );
 
@@ -49,10 +43,7 @@
 		'token' => $app_token
 	];
 
-	$ti_request = $client->request(
-		'GET', 
-		'https://slack.com/api/team.info?' . http_build_query( $ti_payload )
-	);
+	$ti_request = $client->request->get('https://slack.com/api/team.info?' . http_build_query( $ti_payload ));
 
 	$ti_response = json_decode($ti_request->getBody(), true);
 
@@ -62,10 +53,7 @@
 		'channel' => $channel,
 	];
 
-	$ci_request = $client->request(
-		'GET', 
-		'https://slack.com/api/channels.info?' . http_build_query( $ch_payload )
-	);
+	$ci_request = $client->request->get('https://slack.com/api/channels.info?' . http_build_query( $ch_payload ));
 
 	$ci_response = json_decode( $ci_request->getBody(), true );
 
@@ -88,10 +76,7 @@
 			'user'	=> $message[ 'user' ]
 		];
 
-		$ui_request = $client->request(
-			'GET', 
-			'https://slack.com/api/users.info?' . http_build_query( $ui_payload )
-		);
+		$ui_request = $client->request->get('https://slack.com/api/users.info?' . http_build_query( $ui_payload ));
 
 		$ui_response = json_decode( $ui_request->getBody(), true );
 
@@ -126,7 +111,7 @@
 	);
 
 	// Request the Gist
-	$gh_request = $client->request( 'POST', 'https://api.github.com/gists', [
+	$gh_request = $client->request->post( 'https://api.github.com/gists', [
 		'headers' => [
 			'User-Agent' => 'https://api.github.com/meta'
 		],
@@ -142,7 +127,4 @@
 		'text' 	  => '*Last 100 messages have been saved here:* <' . $gh_response[ 'html_url' ] . '>'
 	];
 
-	$nm_request = $client->request(
-		'POST', 
-		'https://slack.com/api/chat.postMessage?' . http_build_query( $nm_payload )
-	);
+	$nm_request = $client->request->post('https://slack.com/api/chat.postMessage?' . http_build_query( $nm_payload ));
