@@ -7,13 +7,12 @@
     $bot_token = '';
 
     // Information from request
-    $token   = $_POST[ 'token' ];
-    $channel = $_POST[ 'channel_id' ];
+    $token   = $_POST['token'];
+    $channel = $_POST['channel_id'];
 
     // Check to see if the token is valid
-    if ( $token != $bot_token )
-    {
-        die( 'Invalid token!' );
+    if ($token != $bot_token) {
+        die('Invalid token!');
     }
 
     // Guzzle
@@ -34,8 +33,7 @@
         'channel' => $channel,
     ];
 
-    $ch_request = $client->request->get('https://slack.com/api/channels.history?' . http_build_query( $ch_payload ));
-
+    $ch_request  = $client->request->get('https://slack.com/api/channels.history?' . http_build_query( $ch_payload ));
     $ch_response = json_decode( $ch_request->getBody(), true );
 
     // Team Info (ti)
@@ -43,8 +41,7 @@
         'token' => $app_token
     ];
 
-    $ti_request = $client->request->get('https://slack.com/api/team.info?' . http_build_query( $ti_payload ));
-
+    $ti_request  = $client->request->get('https://slack.com/api/team.info?' . http_build_query( $ti_payload ));
     $ti_response = json_decode($ti_request->getBody(), true);
 
     // Channel Info (ci)
@@ -53,15 +50,12 @@
         'channel' => $channel,
     ];
 
-    $ci_request = $client->request->get('https://slack.com/api/channels.info?' . http_build_query( $ch_payload ));
-
+    $ci_request  = $client->request->get('https://slack.com/api/channels.info?' . http_build_query( $ch_payload ));
     $ci_response = json_decode( $ci_request->getBody(), true );
 
     // Data for the Gist
     $mh_team_name    = $ti_response[ 'team' ][ 'name' ];
-
     $mh_channel_name = ' #' . $ci_response[ 'channel' ][ 'name' ];
-
     $mh_channel_date = ' [' . date( 'd-m-Y h:i:s A' ) . ']';
 
     // Stores the data to be put in a Gist
@@ -76,8 +70,7 @@
             'user'  => $message[ 'user' ]
         ];
 
-        $ui_request = $client->request->get('https://slack.com/api/users.info?' . http_build_query( $ui_payload ));
-
+        $ui_request  = $client->request->get('https://slack.com/api/users.info?' . http_build_query( $ui_payload ));
         $ui_response = json_decode( $ui_request->getBody(), true );
 
         // Add info to the rest of the data
@@ -95,7 +88,6 @@
 
     // Info for the Gist
     $gh_file_name   = $ci_response[ 'channel' ][ 'name' ] . '_' . date( 'd-m-Y_h-i-s-a' );
-
     $gh_description = $mh_team_name . $mh_channel_name . $mh_channel_date;
 
     $gh_files = array(
